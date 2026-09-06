@@ -1,0 +1,6 @@
+model,input,representation,accuracy,macro_f1,train_seconds
+Engineered features + LogReg,22 hand-made numbers,"fixed, human-chosen",0.5149,0.4799,0.008
+Engineered features + Random Forest,22 hand-made numbers,"fixed, human-chosen",0.4455,0.3856,0.332
+TF-IDF + LogReg,raw words,"fixed, computed",0.6238,0.5748,1.405
+Embeddings (470K params),raw words,learned,0.4158,0.3014,4.266
+"Embeddings, tuned (medium)",raw words,learned,0.495,0.4612,2.66

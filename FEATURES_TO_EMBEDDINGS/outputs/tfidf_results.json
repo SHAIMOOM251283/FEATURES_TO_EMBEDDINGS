@@ -1,0 +1,83 @@
+{
+  "tfidf_logistic_regression": {
+    "accuracy": 0.6238,
+    "macro_f1": 0.5748,
+    "train_seconds": 1.405,
+    "feature_count": 5405,
+    "per_class": {
+      "Childrens": {
+        "precision": 0.6666666666666666,
+        "recall": 0.6666666666666666,
+        "f1-score": 0.6666666666666666,
+        "support": 6.0
+      },
+      "Fantasy": {
+        "precision": 0.8,
+        "recall": 0.4,
+        "f1-score": 0.5333333333333333,
+        "support": 10.0
+      },
+      "Fiction": {
+        "precision": 0.38095238095238093,
+        "recall": 0.6153846153846154,
+        "f1-score": 0.47058823529411764,
+        "support": 13.0
+      },
+      "Food and Drink": {
+        "precision": 0.8333333333333334,
+        "recall": 0.8333333333333334,
+        "f1-score": 0.8333333333333334,
+        "support": 6.0
+      },
+      "Historical Fiction": {
+        "precision": 0.5,
+        "recall": 0.2,
+        "f1-score": 0.2857142857142857,
+        "support": 5.0
+      },
+      "Mystery": {
+        "precision": 0.4,
+        "recall": 0.3333333333333333,
+        "f1-score": 0.36363636363636365,
+        "support": 6.0
+      },
+      "Nonfiction": {
+        "precision": 0.6666666666666666,
+        "recall": 0.7272727272727273,
+        "f1-score": 0.6956521739130435,
+        "support": 22.0
+      },
+      "Romance": {
+        "precision": 0.4,
+        "recall": 0.2857142857142857,
+        "f1-score": 0.3333333333333333,
+        "support": 7.0
+      },
+      "Sequential Art": {
+        "precision": 0.8125,
+        "recall": 0.8666666666666667,
+        "f1-score": 0.8387096774193549,
+        "support": 15.0
+      },
+      "Young Adult": {
+        "precision": 0.7272727272727273,
+        "recall": 0.7272727272727273,
+        "f1-score": 0.7272727272727273,
+        "support": 11.0
+      },
+      "accuracy": 0.6237623762376238,
+      "macro avg": {
+        "precision": 0.6187391774891775,
+        "recall": 0.5655644355644356,
+        "f1-score": 0.574824012991656,
+        "support": 101.0
+      },
+      "weighted avg": {
+        "precision": 0.6386786892975013,
+        "recall": 0.6237623762376238,
+        "f1-score": 0.6166306566659118,
+        "support": 101.0
+      }
+    }
+  }
+}
