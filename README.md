@@ -1,4 +1,4 @@
-# **FEATURES_TO_EMBEDDINGS**
+# FEATURES_TO_EMBEDDINGS
 
 One dataset, four representations, one honest comparison.
 
@@ -14,7 +14,7 @@ report the result whichever way it fell.
 
 ![One book, two minds](FEATURES_TO_EMBEDDINGS/images/00-one-book-two-minds.png)
 
-## **Headline result**
+## Headline result
 
 | Approach                                 | Input                | Representation            | Accuracy        | Macro F1        | Training time   |
 | ---------------------------------------- | -------------------- | ------------------------- | --------------- | --------------- | --------------- |
@@ -30,7 +30,9 @@ same words the neural network reads, but its representation is computed by a
 formula rather than learned by training, and on 403 practice books that turns
 out to be the better trade.
 
-## **The illustrated walkthrough**
+![Accuracy and macro F1 for all five models](FEATURES_TO_EMBEDDINGS/outputs/comparison_summary.png)
+
+## The illustrated walkthrough
 
 The two tracks are explained step by step, with real arithmetic at miniature
 scale, in the images below. The scale is deliberately reduced so each
@@ -38,7 +40,7 @@ calculation can be followed by hand. Three measurements instead of 22, four
 numbers per word instead of 24, three genres instead of ten. Every image states
 what the production code does instead.
 
-### **Part one: the machine learning track**
+### Part one: the machine learning track
 
 A person writes the rules before any book is read. The book is reduced to a row
 of numbers, and from that point on nothing knows it was ever a book.
@@ -107,7 +109,7 @@ graded on. A dead heat overall, with opposite strengths.
 
 ![The Learner's real report card](FEATURES_TO_EMBEDDINGS/images/dl-06-report-card.png)
 
-## **What the data turned out to be**
+## What the data turned out to be
 
 The source is books.toscrape.com, a site published by Zyte, formerly
 Scrapinghub, as a scraping sandbox. It holds 1,000 books across 50 categories,
@@ -130,7 +132,7 @@ spent real capacity searching for a pattern that does not exist.
 After removing those and keeping the ten most frequent remaining categories,
 504 books remain: 403 for training and 101 for testing, stratified by category.
 
-## **Where each approach succeeded**
+## Where each approach succeeded
 
 ![Per category F1 across all five models](FEATURES_TO_EMBEDDINGS/outputs/comparison_heatmap.png)
 
@@ -152,7 +154,7 @@ model that learns what words mean makes progress.
 The mirror image is Fantasy, where the tuned network scores 0.15 against 0.42
 for logistic regression. The two approaches fail in opposite directions.
 
-## **Why the hand written keyword rules mostly failed**
+## Why the hand written keyword rules mostly failed
 
 Counted directly from the 403 training books:
 
@@ -193,6 +195,17 @@ while validation loss bottomed out near 1.75 and climbed.
 The two curves fall together until roughly epoch 10, then separate. Everything
 learned after that point was memorisation rather than generalisation.
 
+What that failure looks like from the inside is clearer still. Projecting the
+book vectors the oversized model produced, coloured by their true genre, gives
+this:
+
+![Learned embedding space of the 470K parameter model](FEATURES_TO_EMBEDDINGS/outputs/dl_embedding_space.png)
+
+There are no clusters. Ten genres are scattered uniformly, with Nonfiction
+spanning the full width and Young Adult everywhere at once. A model that had
+learned what the words mean would separate them here. This one converged,
+trained successfully, and arranged the books at random.
+
 A sweep across six capacities settled the question. Selection was made on a
 validation split carved out of the training data, never on the test set, and
 only the validation winner was scored on test.
@@ -229,7 +242,7 @@ first run measured training budget rather than capacity, and produced the
 opposite conclusion. The corrected sweep allows every configuration up to 600
 epochs with early stopping, so each one halts on its own.
 
-## **Honest caveats**
+## Honest caveats
 
 **TF-IDF benefits from series leakage.** Its strongest Fantasy terms are
 `prince`, `magic`, `harry`, `seven`, `potter` and `harry potter`. Four of the top
@@ -256,7 +269,7 @@ and 220,000 parameters beats 470,000, not that 65,338 is optimal.
 generated, and two categories are meaningless. Conclusions about representation
 quality should transfer. Conclusions about book genres should not.
 
-## **Repository layout**
+## Repository layout
 
 ```
 FEATURES_TO_EMBEDDINGS/
@@ -276,6 +289,11 @@ FEATURES_TO_EMBEDDINGS/
 Two directories hold pictures, for two different reasons. `outputs/` is written
 by the code, so re-running the pipeline recreates it. `images/` holds the
 explanatory visuals, which nothing can regenerate.
+
+Alongside the seven figures, `outputs/` holds the metrics each stage wrote:
+`ml_results.json`, `tfidf_results.json`, `dl_results.json` and
+`dl_sweep_results.json`, plus `comparison.csv` and `comparison_per_class.csv`
+assembled from them. Every number quoted in this README comes from those files.
 
 Models are built with scikit-learn and PyTorch, extraction with Playwright, and
 figures with Matplotlib.
@@ -299,7 +317,7 @@ GPU will never use.
 Everything here runs on CPU. The full pipeline needs no GPU and peaks well under
 2GB of memory.
 
-## **Running**
+## Running
 
 ```
 python src/scraper.py
@@ -316,7 +334,7 @@ Everything except the scrape finishes in seconds. All random seeds are fixed at
 42, so results reproduce exactly, and the same numbers were confirmed on two
 separate machines.
 
-## **What this project actually demonstrates**
+## What this project actually demonstrates
 
 The finding is not that one paradigm beats another. It is that **representation
 quality decides the outcome, and learning a representation is only worth it when
