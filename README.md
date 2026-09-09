@@ -1,4 +1,4 @@
-# FEATURES_TO_EMBEDDINGS
+# **FEATURES_TO_EMBEDDINGS**
 
 One dataset, four representations, one honest comparison.
 
@@ -14,7 +14,7 @@ report the result whichever way it fell.
 
 ![One book, two minds](FEATURES_TO_EMBEDDINGS/images/00-one-book-two-minds.png)
 
-## Headline result
+## **Headline result**
 
 | Approach                                 | Input                | Representation            | Accuracy        | Macro F1        | Training time   |
 | ---------------------------------------- | -------------------- | ------------------------- | --------------- | --------------- | --------------- |
@@ -32,7 +32,7 @@ out to be the better trade.
 
 ![Accuracy and macro F1 for all five models](FEATURES_TO_EMBEDDINGS/outputs/comparison_summary.png)
 
-## The illustrated walkthrough
+## **The illustrated walkthrough**
 
 The two tracks are explained step by step, with real arithmetic at miniature
 scale, in the images below. The scale is deliberately reduced so each
@@ -109,7 +109,7 @@ graded on. A dead heat overall, with opposite strengths.
 
 ![The Learner's real report card](FEATURES_TO_EMBEDDINGS/images/dl-06-report-card.png)
 
-## What the data turned out to be
+## **What the data turned out to be**
 
 The source is books.toscrape.com, a site published by Zyte, formerly
 Scrapinghub, as a scraping sandbox. It holds 1,000 books across 50 categories,
@@ -132,7 +132,7 @@ spent real capacity searching for a pattern that does not exist.
 After removing those and keeping the ten most frequent remaining categories,
 504 books remain: 403 for training and 101 for testing, stratified by category.
 
-## Where each approach succeeded
+## **Where each approach succeeded**
 
 ![Per category F1 across all five models](FEATURES_TO_EMBEDDINGS/outputs/comparison_heatmap.png)
 
@@ -154,7 +154,7 @@ model that learns what words mean makes progress.
 The mirror image is Fantasy, where the tuned network scores 0.15 against 0.42
 for logistic regression. The two approaches fail in opposite directions.
 
-## Why the hand written keyword rules mostly failed
+## **Why the hand written keyword rules mostly failed**
 
 Counted directly from the 403 training books:
 
@@ -184,7 +184,7 @@ would give each one 0.045. The strongest reaches only 0.079, so no single
 measurement is decisive and the model is scraping together weak evidence from
 everywhere. The keyword hunches sit at the bottom.
 
-## The capacity experiment
+## **The capacity experiment**
 
 The first neural network gave 470,538 parameters to 343 training books, roughly
 1,400 parameters per book, and overfitted badly. Training loss fell to 0.71
@@ -242,7 +242,7 @@ first run measured training budget rather than capacity, and produced the
 opposite conclusion. The corrected sweep allows every configuration up to 600
 epochs with early stopping, so each one halts on its own.
 
-## Honest caveats
+## **Honest caveats**
 
 **TF-IDF benefits from series leakage.** Its strongest Fantasy terms are
 `prince`, `magic`, `harry`, `seven`, `potter` and `harry potter`. Four of the top
@@ -269,10 +269,11 @@ and 220,000 parameters beats 470,000, not that 65,338 is optimal.
 generated, and two categories are meaningless. Conclusions about representation
 quality should transfer. Conclusions about book genres should not.
 
-## Repository layout
+## **Repository layout**
 
 ```
 FEATURES_TO_EMBEDDINGS/
+    requirements.txt
     src/
         scraper.py             async Playwright extraction, 1,000 books in 113s
         preprocess.py          filtering, labelling, and the one shared split
@@ -298,11 +299,30 @@ assembled from them. Every number quoted in this README comes from those files.
 Models are built with scikit-learn and PyTorch, extraction with Playwright, and
 figures with Matplotlib.
 
-## Setup
+## **Setup**
+
+Clone the repository and move into the project directory.
+
+```
+git clone https://github.com/SHAIMOOM251283/FEATURES_TO_EMBEDDINGS.git
+cd FEATURES_TO_EMBEDDINGS/FEATURES_TO_EMBEDDINGS
+```
+
+**On Linux or macOS**
 
 ```
 python3 -m venv venv
 source venv/bin/activate
+pip install -r requirements.txt
+playwright install chromium
+pip install torch --index-url https://download.pytorch.org/whl/cpu
+```
+
+**On Windows**
+
+```
+python -m venv venv
+venv\Scripts\activate
 pip install -r requirements.txt
 playwright install chromium
 pip install torch --index-url https://download.pytorch.org/whl/cpu
@@ -317,7 +337,7 @@ GPU will never use.
 Everything here runs on CPU. The full pipeline needs no GPU and peaks well under
 2GB of memory.
 
-## Running
+## **Running**
 
 ```
 python src/scraper.py
@@ -334,7 +354,7 @@ Everything except the scrape finishes in seconds. All random seeds are fixed at
 42, so results reproduce exactly, and the same numbers were confirmed on two
 separate machines.
 
-## What this project actually demonstrates
+## **What this project actually demonstrates**
 
 The finding is not that one paradigm beats another. It is that **representation
 quality decides the outcome, and learning a representation is only worth it when
