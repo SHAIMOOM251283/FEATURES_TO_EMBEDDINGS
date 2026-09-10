@@ -40,6 +40,13 @@ calculation can be followed by hand. Three measurements instead of 22, four
 numbers per word instead of 24, three genres instead of ten. Every image states
 what the production code does instead.
 
+Three representations appear in the results, but only two paradigms. TF-IDF
+belongs to part one: its numbers are fixed by a formula rather than learned by
+training, and the classifier reading them is the same Logistic Regression the
+engineered features use. It differs only in being a far better way of turning
+words into numbers. Part two is the genuine departure, where nobody chooses the
+numbers at all.
+
 ### Part one: the machine learning track
 
 A person writes the rules before any book is read. The book is reduced to a row
@@ -71,7 +78,9 @@ flat zero.
 ![The real report card](FEATURES_TO_EMBEDDINGS/images/ml-05-report-card.png)
 
 **Step 6.** Why `recipe` worked, why the history words died, and why only 3 of
-38 Fantasy books mention a dragon.
+38 Fantasy books mention a dragon. This step also explains the winner: a word
+earns its keep when it belongs to one genre alone, which is exactly what TF-IDF
+measures automatically across every word in the vocabulary.
 
 ![Why the keyword hunches failed](FEATURES_TO_EMBEDDINGS/images/ml-06-hunches.png)
 
